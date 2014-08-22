@@ -1,6 +1,8 @@
 <script type="text/javascript" tal:content="structure string:
     /*&lt;![CDATA[*/
-    _gaq.push(['_trackPageLoadTime']);
+// TODO: Delete this (code before)
+//    _gaq.push(['_trackPageLoadTime']);
+// TODO: Not necessary anymore? http://blog-en.openalfa.com/how-to-upgrade-to-the-google-universal-analytics-tracking-code
     /*]]&gt;*/
 ">
 </script>

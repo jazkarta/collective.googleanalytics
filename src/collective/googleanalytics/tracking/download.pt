@@ -6,7 +6,9 @@
         jq('a').filter(function () {
             return this.href.match(extensionsPattern) || this.href.match(/\/at_download\//g);
         }).click(function () {
-            _gaq.push(['_trackEvent', 'File', 'Download', jq(this).attr('href')]);
+// TODO: Delete this (code before)
+//            _gaq.push(['_trackEvent', 'File', 'Download', jq(this).attr('href')]);
+            ga('send', 'event', 'File', 'Download', jq(this).attr('href'), '', {'nonInteraction': 1});
         });
     });
     /*]]&gt;*/

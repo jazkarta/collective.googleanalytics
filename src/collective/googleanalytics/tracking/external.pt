@@ -5,7 +5,9 @@
     };
     jq(function() {
         jq('a:external').click(function(){
-          _gaq.push(['_trackEvent', 'External', 'Link', jq(this).attr('href')]);
+// TODO: Delete this (code before)
+//       _gaq.push(['_trackEvent', 'External', 'Link', jq(this).attr('href')]);
+          ga('send', 'event', 'External', 'Link', jq(this).attr('href'), '', {'nonInteraction': 1});
         });
     });
     /*]]&gt;*/

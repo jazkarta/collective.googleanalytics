@@ -12,8 +12,8 @@
         
         </script>
 
-        <!-- TODO -->
-        <tal:block condition="python:False" content="structure view/renderPlugins"></tal:block>
+        <tal:block content="structure view/renderPlugins"></tal:block>
 
     </tal:webproperty>
 </tal:tracking>
+
