@@ -6,6 +6,7 @@
 // TODO: Delete this (code before)
 //            _gaq.push(['_trackEvent', 'External', 'E-mail', email]);
             ga('send', 'event', 'External', 'E-mail', email, '', {'nonInteraction': 1});
+            gl('send', 'event', 'External', 'E-mail', email, '', {'nonInteraction': 1});
         });
     });
     /*]]&gt;*/
