@@ -6,6 +6,7 @@
 // TODO: Delete this (code before)
 //            _gaq.push(['_trackEvent', 'Form', 'Comment', content_url]);
             ga('send', 'event', 'Form', 'Comment', content_url, '', {'nonInteraction': 1});
+            gl('send', 'event', 'Form', 'Comment', content_url, '', {'nonInteraction': 1});
         });
     });
     /*]]&gt;*/

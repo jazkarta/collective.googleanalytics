@@ -3,6 +3,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.analytics.view import AnalyticsViewlet
 from collective.googleanalytics.interfaces.tracking import IAnalyticsTrackingPlugin
+from App.config import getConfiguration
 
 class AnalyticsTrackingViewlet(AnalyticsViewlet):
     """
@@ -39,7 +40,14 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
 
         
         return self.analytics_tool.__dict__.get('tracking_web_property', None)
-        
+
+    def debug_mode(self):
+        """
+        Return if is debug modus
+        """
+        config = getConfiguration()
+        return config.debug_mode
+
     def renderPlugins(self):
         """
         Render each of the selected tracking plugins for the current context
