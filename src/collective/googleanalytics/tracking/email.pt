@@ -5,8 +5,8 @@
             var email = jq(this).attr('href').replace('mailto:', '');
 // TODO: Delete this (code before)
 //            _gaq.push(['_trackEvent', 'External', 'E-mail', email]);
-            ga('send', 'event', 'External', 'E-mail', email, '', {'nonInteraction': 1});
-            gl('send', 'event', 'External', 'E-mail', email, '', {'nonInteraction': 1});
+            ga('send', 'event', 'External', 'E-mail', email);
+            gl('send', 'event', 'External', 'E-mail', email);
         });
     });
     /*]]&gt;*/

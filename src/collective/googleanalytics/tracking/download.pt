@@ -8,7 +8,8 @@
         }).click(function () {
 // TODO: Delete this (code before)
 //            _gaq.push(['_trackEvent', 'File', 'Download', jq(this).attr('href')]);
-            ga('send', 'event', 'File', 'Download', jq(this).attr('href'), '', {'nonInteraction': 1});
+            ga('send', 'event', 'File', 'Download', jq(this).attr('href'));
+            gl('send', 'event', 'File', 'Download', jq(this).attr('href'));
         });
     });
     /*]]&gt;*/
