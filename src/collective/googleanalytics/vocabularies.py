@@ -5,6 +5,15 @@ from Products.CMFCore.utils import getToolByName
 from collective.googleanalytics.interfaces.tracking import IAnalyticsTrackingPlugin
 from collective.googleanalytics import error
 
+def crop(text, length):
+    if len(text) > 40:
+        text = text[:40]
+        l = text.rfind(' ')
+        if l > 20:  # 40 / 2
+            text = text[:l + 1]
+        text += '...'
+    return text
+
 def getProfiles(context):
     """
     Return list of Google Analytics profiles and corresponding
@@ -34,6 +43,7 @@ def getProfiles(context):
                     title = prop.value
                     if not isinstance(title, unicode):
                         title = unicode(title, 'utf-8')
+                    title = crop(title, 40)
                 if prop.name == 'dxp:tableId':
                     tableId = prop.value
             unique_choices.update({title: tableId})
@@ -74,7 +84,7 @@ def getWebProperties(context):
                 if prop.name == 'ga:profileName':
                     title = prop.value
                     if not isinstance(title, unicode):
-                        title = unicode(title, 'utf-8') 
+                        title = unicode(title, 'utf-8')
                 if prop.name == 'ga:webPropertyId':
                     webPropertyId = prop.value
             if not webPropertyId in unique_choices.keys():
@@ -84,7 +94,7 @@ def getWebProperties(context):
         # After we reverse the terms so that the profile name(s) is now the key, we need
         # to ensure that these keys are unique. So, we pass the resulting list through
         # dict() and then output a list of items.
-        choices = dict([(title, property_id) for (property_id, title) in unique_choices.items()]).items()
+        choices = dict([(crop(title, 40), property_id) for (property_id, title) in unique_choices.items()]).items()
     else:
         choices = [('No profiles available', None)]
     return SimpleVocabulary([SimpleTerm(c[1], c[1], c[0]) for c in choices])
