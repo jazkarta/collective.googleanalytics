@@ -1,7 +1,6 @@
 <script type="text/javascript" tal:content="structure string:
     /*&lt;![CDATA[*/
-// TODO: Delete this (code before)
-//    _gaq.push(['_trackPageLoadTime']);
+// universal analytics - pageloadtime
 // TODO: Not necessary anymore? http://blog-en.openalfa.com/how-to-upgrade-to-the-google-universal-analytics-tracking-code
 // See also: siteSpeedSampleRate
     /*]]&gt;*/

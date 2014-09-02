@@ -1,15 +1,13 @@
 <script type="text/javascript" tal:content="structure string:
     /*&lt;![CDATA[*/
+// universal analytics - download
     jq(function() {
         var extensions = ${view/file_extensions};
         var extensionsPattern = new RegExp('\\.((' + extensions.join(')|(') + '))$$', 'g');
         jq('a').filter(function () {
             return this.href.match(extensionsPattern) || this.href.match(/\/at_download\//g);
         }).click(function () {
-// TODO: Delete this (code before)
-//            _gaq.push(['_trackEvent', 'File', 'Download', jq(this).attr('href')]);
             ga('send', 'event', 'File', 'Download', jq(this).attr('href'));
-            gl('send', 'event', 'File', 'Download', jq(this).attr('href'));
         });
     });
     /*]]&gt;*/

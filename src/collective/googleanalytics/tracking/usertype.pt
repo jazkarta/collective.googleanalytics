@@ -1,7 +1,6 @@
 <script type="text/javascript" tal:content="structure string:
     /*&lt;![CDATA[*/
-// TODO: Delete this (code before)
-//    _gaq.push(['_setCustomVar', 1, 'User Type', '${view/user_type}', 2]);
+// universal analytics - usertype
 // TODO:  https://developers.google.com/analytics/devguides/collection/upgrade/reference/gajs-analyticsjs#custom-vars
     /*]]&gt;*/
 ">
