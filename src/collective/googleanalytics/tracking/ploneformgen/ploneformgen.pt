@@ -3,7 +3,7 @@
     tal:condition="form_status"
     tal:content="structure string:
     /*&lt;![CDATA[*/
-// universal analytics - comment
+// universal analytics - PloneFormGen forms
     ga('send', 'pageview', '${view/relative_url}/${form_status}');
     /*]]&gt;*/
 ">
