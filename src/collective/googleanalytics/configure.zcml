@@ -30,6 +30,7 @@
   <include file="plugins.zcml" />
   <include zcml:condition="installed Products.GenericSetup.upgrade"
     file="upgrades.zcml"/>
+  <includeOverrides package="."/>
 
   <i18n:registerTranslations directory="locales" />
 
