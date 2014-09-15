@@ -14,7 +14,7 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
     so that we can exclude the code for certain roles.
     """
 
-    render = ViewPageTemplateFile('tracking.pt')
+    index = ViewPageTemplateFile('tracking.pt')
 
     def __init__(self, context, request, view, manager):
         super(AnalyticsTrackingViewlet, self).__init__(context, request, view, manager)

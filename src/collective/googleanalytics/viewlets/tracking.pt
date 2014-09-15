@@ -2,6 +2,9 @@
     <tal:webproperty define="web_property view/getTrackingWebProperty;
                              ga_debug     python:view.debug_mode and 'true' or 'false';"
         condition="web_property">
+
+        <!--        plone_properties/site_properties/webstat_js -->
+
         <script>
           (function(i,s,o,g,r,a,m){
           i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
