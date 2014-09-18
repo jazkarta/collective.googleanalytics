@@ -40,6 +40,10 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
         """
         return self.analytics_tool.__dict__.get('tracking_web_property', None)
 
+    def is_tracking_custom(self):
+        return (self.analytics_tool.__dict__.get('tracking_web_property', None)
+                == '_TRACKING_CODE_CUSTOM')
+
     def get_tracking_custom(self):
         """
         Returns True custom tracking code to connect with google.
