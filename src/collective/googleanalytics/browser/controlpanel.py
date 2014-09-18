@@ -11,7 +11,8 @@ from plone.fieldsets.fieldsets import FormFieldsets
 import gdata.auth
 from collective.googleanalytics import error
 from collective.googleanalytics.interfaces.utility import \
-    IAnalyticsReportsAssignment, IAnalyticsTracking, IAnalyticsSettings
+    IAnalyticsConection, IAnalyticsReportsAssignment, \
+    IAnalyticsTracking, IAnalyticsSettings
 
 from collective.googleanalytics import GoogleAnalyticsMessageFactory as _
 
@@ -24,10 +25,16 @@ class AnalyticsControlPanelForm(ControlPanelForm):
     """
     Google Analytics Control Panel Form
     """
-    
+
     implements(IAnalyticsControlPanelForm)
     template = ViewPageTemplateFile('controlpanel.pt')
-    
+
+    analytics_connection = FormFieldsets(IAnalyticsConection)
+    analytics_connection.id = 'analytics_connection'
+    analytics_connection.label = _(u'analytics_connection', default=u'Connection')
+    analytics_connection.description = _(u'analytics_connection_description', 
+        default=u'Configure the connection with Google Analytics.')
+
     analytics_assignment = FormFieldsets(IAnalyticsReportsAssignment)
     analytics_assignment.id = 'analytics_assignment'
     analytics_assignment.label = _(u'analytics_assignment', default=u'Reports')
@@ -42,15 +49,15 @@ class AnalyticsControlPanelForm(ControlPanelForm):
         default=u'Configure the way Google Analytics tracks statistics about this site.')
     analytics_tracking['tracking_plugin_names'].custom_widget = MultiCheckBoxVocabularyWidget
     analytics_tracking['tracking_excluded_roles'].custom_widget = MultiCheckBoxVocabularyWidget
-    
+
     analytics_settings = FormFieldsets(IAnalyticsSettings)
     analytics_settings.id = 'analytics_settings'
     analytics_settings.label = _(u'analytics_settings', default=u'Settings')
     analytics_settings.description = _(u'analytics_settings_description', 
         default=u'Configure the settings of the Google Analytics product.')
     
-    form_fields = FormFieldsets(analytics_tracking, analytics_assignment, analytics_settings)
-    
+    form_fields = FormFieldsets(analytics_connection, analytics_tracking, analytics_assignment, analytics_settings)
+
     label = _(u"Google Analytics")
     form_name = _("Google Analytics Settings")
     
@@ -58,7 +65,6 @@ class AnalyticsControlPanelForm(ControlPanelForm):
         """
         Returns True if we have an auth token, or false otherwise.
         """
-        
         if self.context.auth_token:
             return True
         return False

@@ -4,6 +4,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from Products.CMFCore.utils import getToolByName
 from collective.googleanalytics.interfaces.tracking import IAnalyticsTrackingPlugin
 from collective.googleanalytics import error
+from collective.googleanalytics import GoogleAnalyticsMessageFactory as _
 
 def crop(text, length):
     if len(text) > 40:
@@ -19,7 +20,6 @@ def getProfiles(context):
     Return list of Google Analytics profiles and corresponding
     account IDs (e.g. ga:30481).
     """
-
     analytics_tool = getToolByName(getSite(), 'portal_analytics')
     # short circuit if user hasn't authorized yet
     if not analytics_tool.auth_token:
@@ -58,10 +58,14 @@ def getWebProperties(context):
     IDs (e.g. UA-30481-22).
     """
 
+    custom_connection = (_(u'custom tracking code'), '_TRACKING_CODE_CUSTOM')
+
     analytics_tool = getToolByName(getSite(), 'portal_analytics')
     # short circuit if user hasn't authorized yet
     if not analytics_tool.auth_token:
-        return SimpleVocabulary([])
+        return SimpleVocabulary([SimpleTerm(custom_connection[1],
+                                            custom_connection[1],
+                                            custom_connection[0])])
 
     try:
         accounts = analytics_tool.getAccountsFeed('accounts/~all/webproperties/~all/profiles')
@@ -97,6 +101,7 @@ def getWebProperties(context):
         choices = dict([(crop(title, 40), property_id) for (property_id, title) in unique_choices.items()]).items()
     else:
         choices = [('No profiles available', None)]
+    choices.append(custom_connection)
     return SimpleVocabulary([SimpleTerm(c[1], c[1], c[0]) for c in choices])
 
 def getReports(context, category=None):

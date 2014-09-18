@@ -326,3 +326,5 @@ msgstr "Configure a maneira como o Google Analytics monitora as estatísticas de
 msgid "did not return any results"
 msgstr ""
 
+msgid "Connection"
+msgstr "Conexão"

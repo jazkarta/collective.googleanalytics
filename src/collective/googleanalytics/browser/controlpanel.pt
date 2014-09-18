@@ -13,9 +13,25 @@
              tal:define="dummy python:request.set('disable_border', 1)" />
 
 <body>
-
 <div metal:fill-slot="prefs_configlet_main">
+    <script type="text/javascript"><!--
+    function refresh_custom_code() {
+        if ($('#form\\.tracking_web_property').val() == '_TRACKING_CODE_CUSTOM') {
+            $('#form\\.custom_js').show();
+        } else {
+            $('#form\\.custom_js').hide();
+        }
+    }
 
+    jQuery(function($){
+      $(document).ready(function()  {
+        $('#form\\.tracking_web_property').change(function() {
+            refresh_custom_code();
+        });
+        refresh_custom_code();
+      });
+    });
+    --></script>
     <div metal:define-macro="form">
 
         <div id="viewspace" metal:define-slot="viewspace">
@@ -32,7 +48,7 @@
                 </dl>
 
             </metal:block>
-            
+
             <p style="float: right;" i18n:domain="collective.googleanalytics">
                 <a href="http://www.google.com/analytics/" 
                   i18n:translate=""
@@ -65,55 +81,8 @@
                i18n:translate="label_up_to_plone_setup">
                 Up to Site Setup
             </a>
-            
-            <tal:notauthorized condition="not:view/authorized" i18n:domain="collective.googleanalytics">
-                <h2 i18n:translate="">Authorization required</h2>
-                <p i18n:translate="">
-                    Before you can use Google Analytics for Plone, you need to authorize
-                    this site to access your Google Analytics account. Follow the steps
-                    below to complete the authorization process.
-                </p>
-                <ol>
-                    <li i18n:translate="">
-                        To begin, log into the Google account that you use to access Google
-                        Analytics if you have not done so already. To log in, you can
-                        <a href="http://www.google.com/analytics" i18n:name="visit_google_analytics">visit Google Analytics</a>
-                        and sign in as usual.
-                    </li>
-                    <li>
-                        <span i18n:translate="">Once you have signed into your Google account, click this link
-                        to begin the authorization process:</span>
-                        <div style="margin: 1em 0;">
-                            <a style="font-size:1.3em; font-weight: bold;"
-                                tal:attributes="href view/auth_url" i18n:translate="">Authorize with Google</a>
-                        </div>
-                    </li>
-                    <li>
-                        <span i18n:translate="">Google will ask you if you want to allow this site to access your
-                        Google Analytics data. If the URL displayed matches the one below,
-                        click the Grant Access button.</span><br />
-                        <div style="margin: 1em 0;">
-                            <strong style="font-size:1.3em;"
-                                tal:content="string:${context/portal_url}/analytics-auth">
-                                <tal:comment replace="nothing">Analytics authorization URL</tal:comment>
-                            </strong>
-                        </div>
-                    </li>
-                    <li i18n:translate="">
-                        After you click Grant Access, you will be returned to this page where
-                        you can configure Google Analytics for Plone.
-                    </li>
-                    <li i18n:translate="">
-                        If you ever decide that you no longer want this site to have access
-                        to your Google Analytics data, you can remove its authorization by
-                        clicking the Revoke Access link in this control panel or by visiting
-                        the Change Authorized Websites link in your Google account preferences.
-                    </li>
-                </ol>
-                
-            </tal:notauthorized>
-            
-            <tal:authorized condition="view/authorized">          
+
+            <tal:authorized>
                 <form action="."
                       metal:define-macro="master"
                       tal:define="is_fieldsets view/is_fieldsets"
@@ -194,6 +163,55 @@
                             Description
                         </p>
 
+                        <dl class="collapsible collapsedOnLoad" tal:condition="python:fieldset.id == 'analytics_connection'">
+                          <dt class="collapsibleHeader" i18n:translate="connect_google_label">Connect with  google</dt>
+                          <dd class="collapsibleContent">
+
+                            <p i18n:translate="">
+                                Before you can use Google Analytics for Plone, you need to authorize
+                                this site to access your Google Analytics account. Follow the steps
+                                below to complete the authorization process.
+                            </p>
+                            <ol>
+                                <li i18n:translate="">
+                                    To begin, log into the Google account that you use to access Google
+                                    Analytics if you have not done so already. To log in, you can
+                                    <a href="http://www.google.com/analytics" i18n:name="visit_google_analytics">visit Google Analytics</a>
+                                    and sign in as usual.
+                                </li>
+                                <li>
+                                    <span i18n:translate="">Once you have signed into your Google account, click this link
+                                    to begin the authorization process:</span>
+                                    <div style="margin: 1em 0;">
+                                        <a style="font-size:1.3em; font-weight: bold;"
+                                            tal:attributes="href view/auth_url" i18n:translate="">Authorize with Google</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span i18n:translate="">Google will ask you if you want to allow this site to access your
+                                    Google Analytics data. If the URL displayed matches the one below,
+                                    click the Grant Access button.</span><br />
+                                    <div style="margin: 1em 0;">
+                                        <strong style="font-size:1.3em;"
+                                            tal:content="string:${context/portal_url}/analytics-auth">
+                                            <tal:comment replace="nothing">Analytics authorization URL</tal:comment>
+                                        </strong>
+                                    </div>
+                                </li>
+                                <li i18n:translate="">
+                                    After you click Grant Access, you will be returned to this page where
+                                    you can configure Google Analytics for Plone.
+                                </li>
+                                <li i18n:translate="">
+                                    If you ever decide that you no longer want this site to have access
+                                    to your Google Analytics data, you can remove its authorization by
+                                    clicking the Revoke Access link in this control panel or by visiting
+                                    the Change Authorized Websites link in your Google account preferences.
+                                </li>
+                            </ol>
+                          </dd>
+                        </dl>
+
                         <tal:block tal:repeat="widget fieldset/widgets">
 
                             <div class="field"
@@ -202,9 +220,9 @@
                                  tal:attributes="class python:'field'+(error and ' error' or '')">
 
                                 <label i18n:translate=""
-    				   tal:define="name widget/name"
+                       tal:define="name widget/name"
                                        tal:attributes="for widget/associateLabelWithInputControl|name"
-    				   tal:content="widget/label">
+                       tal:content="widget/label">
                                     label
                                 </label>
 

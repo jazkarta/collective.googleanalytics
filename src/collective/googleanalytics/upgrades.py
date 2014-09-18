@@ -148,3 +148,12 @@ def upgrade_10b3_to_10(setup_tool):
     
     name = 'profile-collective.googleanalytics:upgrade_10b3_10'
     setup_tool.runAllImportStepsFromProfile(name)
+
+def upgrade_10_to_11(setup_tool):
+    """
+    Prepare code for google universal analytics (add "custom tracking" field).
+    """
+
+    analytics_tool = getToolByName(setup_tool, 'portal_analytics')
+    if not hasattr(analytics_tool, 'custom_js'):
+        analytics_tool.custom_js = None

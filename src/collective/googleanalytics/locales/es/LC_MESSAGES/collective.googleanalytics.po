@@ -330,3 +330,5 @@ msgstr "Configurar la forma de las estadísticas de seguimiento de Google Analyt
 msgid "did not return any results"
 msgstr "no arrojó ningún resultado"
 
+msgid "Connection"
+msgstr "Conexión"

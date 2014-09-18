@@ -9,15 +9,27 @@ class IAnalyticsCredentials(Interface):
 
     auth_token = schema.TextLine(required=False)
 
-class IAnalyticsTracking(Interface):
+
+class IAnalyticsConection(Interface):
     """
-    Tracking settings for Google Analytics.
+    Tracking connection with google.
     """
 
     tracking_web_property = schema.Choice(title=_(u"Tracking Profile"),
         vocabulary='collective.googleanalytics.WebProperties',
         description=_(u"Choose the Web property profile from Google Analytics."),
         required=False)
+
+    custom_js = schema.Text(
+        title=_('Custom tracking code'),
+        description=_('The tracking code (.js) customized for your needs'),
+        required = False,
+        )
+
+class IAnalyticsTracking(Interface):
+    """
+    Tracking settings for Google Analytics.
+    """
 
     tracking_plugin_names = schema.List(title=_(u"Plugins"),
         value_type=schema.Choice(vocabulary='collective.googleanalytics.TrackingPluginNames'),
@@ -59,7 +71,8 @@ class IAnalyticsSettings(Interface):
         required=True)
 
 class IAnalytics(
-        IAnalyticsCredentials, 
+        IAnalyticsCredentials,
+        IAnalyticsConection, 
         IAnalyticsReportsAssignment, 
         IAnalyticsTracking, 
         IAnalyticsSettings):

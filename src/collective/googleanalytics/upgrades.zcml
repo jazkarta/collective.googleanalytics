@@ -76,4 +76,13 @@
         handler="collective.googleanalytics.upgrades.null_upgrade_step"
         />
 
+    <genericsetup:upgradeStep
+        source="10"
+        destination="11"
+        title="Upgrade 10 to 11 - universal analytics"
+        description=""
+        profile="collective.googleanalytics:default"
+        handler="collective.googleanalytics.upgrades.upgrade_10_to_11"
+        />
+
 </configure>

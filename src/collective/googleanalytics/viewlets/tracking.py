@@ -5,7 +5,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.analytics.view import AnalyticsViewlet
 from collective.googleanalytics.interfaces.tracking import IAnalyticsTrackingPlugin
-from App.config import getConfiguration
 
 class AnalyticsTrackingViewlet(AnalyticsViewlet):
     """
@@ -39,15 +38,13 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
         Returns the Google web property ID for the selected tracking profile,
         or an empty string if no tracking profile is selected.
         """
-
         return self.analytics_tool.__dict__.get('tracking_web_property', None)
 
-    def debug_mode(self):
+    def get_tracking_custom(self):
         """
-        Return if is debug modus
+        Returns True custom tracking code to connect with google.
         """
-        config = getConfiguration()
-        return config.debug_mode
+        return self.analytics_tool.__dict__.get('custom_js', '')
 
     def renderPlugins(self):
         """
@@ -71,19 +68,10 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
         return self.view.__name__
 
     def renderPageview(self):
-        push_params = ["'_trackPageview'"]
-        exc_info = sys.exc_info()[0]
+        push_params = ["'send'", "'pageview'"]
         if self.view.__name__.startswith("search"):
             query = {'q': self.request.get('SearchableText', ''),
                      'searchcat': self.getsearchcat()}
             push_params.append("'/searchresult?%s'" % urlencode(query))
-        elif exc_info is not None:
-            if exc_info == NotFound:
-                errorcode = 404
-            else:
-                errorcode = 500
-            push_params.append(
-            ("'/error/%s?page=' + document.location.pathname + "
-             "document.location.search + '&from=' + document.referrer")
-            % errorcode)
-        return "_gaq.push([%s]);" % ', '.join(push_params)
+        return "ga(%s);" % ', '.join(push_params)
+
