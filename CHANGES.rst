@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5 (unreleased)
+1.5-FHNW1 (unreleased)
 ----------------
 
 - Add virtual page views for search and error pages [tomgross]
@@ -22,6 +22,11 @@ Changelog
   
 - Pass viewlet view and manager [tomgross]
 
+- Added support for "universal analytics". The "old" google analytics 
+  Accounts will be no supported anymore [rristow]
+
+- Added support for "custom connections" (It's not necessary to connect with
+  google)
 
 1.4.3 (2013-05-28)
 ------------------
