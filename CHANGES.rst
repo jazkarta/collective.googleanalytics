@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.5-FHNW1 (unreleased)
-----------------
+1.5.FHNW1 (2014-09-21)
+----------------------
 
 - Add virtual page views for search and error pages [tomgross]
  
