@@ -15,6 +15,9 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
 
     index = ViewPageTemplateFile('tracking.pt')
 
+    def render(self):
+        return self.index()
+
     def __init__(self, context, request, view, manager):
         super(AnalyticsTrackingViewlet, self).__init__(context, request, view, manager)
         self.analytics_tool = getToolByName(context, "portal_analytics")
