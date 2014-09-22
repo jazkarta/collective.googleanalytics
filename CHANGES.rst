@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.5.FHNW4 (unreleased)
+----------------------
+
+- Nothing changed yet.
+
+
 1.5.FHNW3 (2014-09-22)
 ----------------------
 
