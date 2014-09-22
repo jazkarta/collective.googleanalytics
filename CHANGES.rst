@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.FHNW2 (unreleased)
+1.5.FHNW2 (2014-09-22)
 ----------------------
 
 - Nothing changed yet.
