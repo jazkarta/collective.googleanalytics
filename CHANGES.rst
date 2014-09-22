@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.FHNW3 (unreleased)
+1.5.FHNW3 (2014-09-22)
 ----------------------
 
 - fixed tracking viewlet (render) [rristow]
