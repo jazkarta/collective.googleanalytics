@@ -62,6 +62,16 @@ On the settings tab, you can also configure the amount of time, in minutes,
 that account information and report results will be cached, reducing the need
 to query Google. Sixty minutes is the default caching interval.
 
+Google Analytics x Universal Analytics
+--------------------------------------
+
+Universal Analytics introduces a set of features that change the way data 
+is collected and organized in your Google Analytics account.
+In the version 1.5 of collective.googleanalytics the tracking code was changed 
+to "universal analytics". The existing google analytics accounts MUST to be 
+migrated before using this version. 
+Please check the google documentation for details. 
+
 Registering a Domain
 ====================
 When you authorize your site to access your Google Analytics data, you may

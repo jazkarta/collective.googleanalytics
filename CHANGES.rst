@@ -4,7 +4,7 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-- Implemented the "Universal Analytics" protocol. The existing google analytics accounts MUST to be migrated before using this version. Please check the google documentation. [rristow] 
+- Changed the tracking code to the new "Universal Analytics". The existing google analytics accounts MUST to be migrated before using this version. Please check the google documentation for details. [rristow] 
 
 - Added support for "custom connections". [rristow]
 
