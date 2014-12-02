@@ -1,20 +1,12 @@
 Changelog
 =========
 
-1.5.FHNW4 (unreleased)
-----------------------
+1.5 (unreleased)
+----------------
 
-- Nothing changed yet.
+- Implemented the "Universal Analytics" protocol. The existing google analytics accounts MUST to be migrated before using this version. Please check the google documentation. [rristow] 
 
-
-1.5.FHNW3 (2014-09-22)
-----------------------
-
-- fixed tracking viewlet (render) [rristow]
-
-
-1.5.FHNW1 (2014-09-21)
-----------------------
+- Added support for "custom connections". [rristow]
 
 - Add virtual page views for search and error pages [tomgross]
  
@@ -33,12 +25,6 @@ Changelog
 - Crop overlong profile names [tomgross]
   
 - Pass viewlet view and manager [tomgross]
-
-- Added support for "universal analytics". The "old" google analytics 
-  Accounts will be no supported anymore [rristow]
-
-- Added support for "custom connections" (It's not necessary to connect with
-  google)
 
 1.4.3 (2013-05-28)
 ------------------
