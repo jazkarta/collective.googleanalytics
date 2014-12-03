@@ -6,6 +6,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.analytics.view import AnalyticsViewlet
 from collective.googleanalytics.interfaces.tracking import IAnalyticsTrackingPlugin
 
+User_PII_PluginName = "User PII"
+
 class AnalyticsTrackingViewlet(AnalyticsViewlet):
     """
     A viewlet that inserts the Google Analytics tracking code
@@ -53,6 +55,16 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
         """
         return self.analytics_tool.__dict__.get('custom_js', '')
 
+    def renderUserPPI(self):
+        plugin = queryMultiAdapter(
+                (self.context, self.request),
+                interface=IAnalyticsTrackingPlugin,
+                name=User_PII_PluginName,
+                default=None,
+            )
+        if plugin:
+            return plugin()
+
     def renderPlugins(self):
         """
         Render each of the selected tracking plugins for the current context
@@ -60,7 +72,9 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
         """
 
         results = []
-        for plugin_name in self.analytics_tool.tracking_plugin_names:
+        pnames = [a for a in self.analytics_tool.tracking_plugin_names 
+                                            if a != User_PII_PluginName]
+        for plugin_name in pnames:
             plugin = queryMultiAdapter(
                 (self.context, self.request),
                 interface=IAnalyticsTrackingPlugin,

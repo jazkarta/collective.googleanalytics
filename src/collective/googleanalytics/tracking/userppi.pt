@@ -1,0 +1,10 @@
+<script type="text/javascript"
+  tal:define="userppi view/user_ppi"
+  tal:condition="userppi"
+  tal:content="structure string:
+    /*&lt;![CDATA[*/
+   // universal analytics - user id
+   ga('set', '&uid', '${userppi}');
+    /*]]&gt;*/
+">
+</script>

@@ -65,7 +65,7 @@ class AnalyticsUserTypePlugin(AnalyticsBaseTrackingPlugin):
     """
 
     __call__ = ViewPageTemplateFile('usertype.pt')
-    
+
     def user_type(self):
         """
         Returns Member if the user is logged or Visitor otherwise.
@@ -82,3 +82,23 @@ class AnalyticsPageLoadTimePlugin(AnalyticsBaseTrackingPlugin):
     """
 
     __call__ = ViewPageTemplateFile('pageloadtime.pt')
+
+class AnalyticsUserPPI(AnalyticsBaseTrackingPlugin):
+    """
+    A tracking plugin to user personally identifiable information (PII).
+    The PII is the base64 encoded Id.
+    """
+
+    def user_ppi(self):
+        """
+        Returns Member if the user is logged or Visitor otherwise.
+        """
+        
+        membership = getToolByName(self.context, 'portal_membership')
+        if membership.isAnonymousUser():
+            return None
+        else:
+            user = membership.getAuthenticatedMember()
+            return user.id.encode("base64").strip()
+
+    __call__ = ViewPageTemplateFile('userppi.pt')

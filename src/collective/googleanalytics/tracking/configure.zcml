@@ -39,4 +39,10 @@
         factory=".plugins.AnalyticsPageLoadTimePlugin"
         />
 
+    <adapter
+        for="* zope.publisher.interfaces.IRequest"
+        name="User PII"
+        factory=".plugins.AnalyticsUserPPI"
+        />
+
 </configure>
