@@ -15,6 +15,23 @@
 <body>
 
 <div metal:fill-slot="prefs_configlet_main">
+   <script type="text/javascript"><!--
+    function refresh_custom_code() {
+        if ($('#form\\.tracking_web_property').val() == '_TRACKING_CODE_CUSTOM') {
+            $('#form\\.custom_js').show();
+        } else {
+            $('#form\\.custom_js').hide();
+        }
+    }
+    jQuery(function($){
+      $(document).ready(function()  {
+        $('#form\\.tracking_web_property').change(function() {
+            refresh_custom_code();
+        });
+        refresh_custom_code();
+      });
+    });
+    --></script>
 
     <div metal:define-macro="form">
 

@@ -16,7 +16,8 @@ import gdata.auth
 import gdata.gauth
 from collective.googleanalytics import error
 from collective.googleanalytics.interfaces.utility import \
-    IAnalyticsReportsAssignment, IAnalyticsTracking, IAnalyticsSettings
+    IAnalyticsConnection, IAnalyticsReportsAssignment, \
+    IAnalyticsTracking, IAnalyticsSettings
 
 from collective.googleanalytics import GoogleAnalyticsMessageFactory as _
 
@@ -37,6 +38,12 @@ class AnalyticsControlPanelForm(ControlPanelForm):
 
     implements(IAnalyticsControlPanelForm)
     template = ViewPageTemplateFile('controlpanel.pt')
+
+    analytics_connection = FormFieldsets(IAnalyticsConnection)
+    analytics_connection.id = 'analytics_connection'
+    analytics_connection.label = _(u'analytics_connection', default=u'Connection')
+    analytics_connection.description = _(u'analytics_connection_description', 
+        default=u'Configure the connection with Google Analytics.')    
 
     analytics_assignment = FormFieldsets(IAnalyticsReportsAssignment)
     analytics_assignment.id = 'analytics_assignment'
@@ -62,8 +69,8 @@ class AnalyticsControlPanelForm(ControlPanelForm):
         u'analytics_settings_description',
         default=u'Configure the settings of the Google Analytics product.')
 
-    form_fields = FormFieldsets(analytics_tracking, analytics_assignment, analytics_settings)
-
+    form_fields = FormFieldsets(analytics_connection, analytics_tracking, 
+                                analytics_assignment, analytics_settings)
     label = _(u"Google Analytics")
     form_name = _("Google Analytics Settings")
 
@@ -135,7 +142,8 @@ class AnalyticsControlPanelForm(ControlPanelForm):
         tracking_web_property = data.get('tracking_web_property', None)
         properties_tool = getToolByName(self.context, "portal_properties")
         snippet = properties_tool.site_properties.webstats_js
-        snippet_analytics = '_gat' in snippet or '_gaq' in snippet
+        snippet_analytics = '_gat' in snippet or '_gaq' in snippet or \
+                            'analytics.js' in snippet
         if tracking_web_property and snippet_analytics:
             plone_utils = getToolByName(self.context, 'plone_utils')
             plone_utils.addPortalMessage(

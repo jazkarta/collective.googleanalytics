@@ -4,6 +4,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from Products.CMFCore.utils import getToolByName
 from collective.googleanalytics.interfaces.tracking import IAnalyticsTrackingPlugin
 from collective.googleanalytics import error
+from collective.googleanalytics import GoogleAnalyticsMessageFactory as _
 from gdata.client import RequestError
 
 
@@ -55,11 +56,14 @@ def getWebProperties(context):
     IDs (e.g. UA-30481-22).
     """
 
+    custom_connection = (_(u'custom tracking code'), '_TRACKING_CODE_CUSTOM')
+
     analytics_tool = getToolByName(getSite(), 'portal_analytics')
     # short circuit if user hasn't authorized yet
     if not analytics_tool.is_auth():
-        return SimpleVocabulary([])
-
+        return SimpleVocabulary([SimpleTerm(custom_connection[1],
+                                            custom_connection[1],
+                                            custom_connection[0])])
     try:
         accounts = analytics_tool.getAccountsFeed('accounts/~all/webproperties/~all/profiles')
     except error.BadAuthenticationError:
@@ -98,6 +102,7 @@ def getWebProperties(context):
         choices = dict([(title, property_id) for (property_id, title) in unique_choices.items()]).items()
     else:
         choices = [('No profiles available', None)]
+        choices.append(custom_connection)
     return SimpleVocabulary([SimpleTerm(c[1], c[1], c[0]) for c in choices])
 
 

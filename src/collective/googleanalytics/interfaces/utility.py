@@ -3,17 +3,27 @@ from zope import schema
 from collective.googleanalytics.interfaces import GoogleAnalyticsMessageFactory as _
 
 
+class IAnalyticsConnection(Interface):
+    """
+    Tracking connection with google.
+    """
+
+    tracking_web_property = schema.Choice(title=_(u"Tracking Profile"),
+        vocabulary='collective.googleanalytics.WebProperties',
+        description=_(u"Choose the Web property profile from Google Analytics."),
+        required=False)
+
+    custom_js = schema.Text(
+        title=_('Custom tracking code'),
+        description=_('The tracking code (.js) customized for your needs'),
+        required=False,
+    )
+
+
 class IAnalyticsTracking(Interface):
     """
     Tracking settings for Google Analytics.
     """
-
-    tracking_web_property = schema.Choice(
-        title=_(u"Tracking Profile"),
-        vocabulary='collective.googleanalytics.WebProperties',
-        description=_(u"Choose the Web property profile from Google Analytics."),
-        required=False
-    )
 
     tracking_plugin_names = schema.List(
         title=_(u"Plugins"),
@@ -68,6 +78,7 @@ class IAnalyticsSettings(Interface):
 
 
 class IAnalytics(
+        IAnalyticsConnection,
         IAnalyticsReportsAssignment,
         IAnalyticsTracking,
         IAnalyticsSettings):

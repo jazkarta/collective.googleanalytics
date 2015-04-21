@@ -62,6 +62,9 @@ class Analytics(PloneBaseTool, IFAwareObjectManager, OrderedFolder):
     security.declarePrivate('email')
     security.declarePrivate('password')
 
+    security.declarePrivate('custom_js')
+    custom_js = FieldProperty(IAnalytics['custom_js'])
+
     security.declarePrivate('tracking_web_property')
     tracking_web_property = FieldProperty(IAnalytics['tracking_web_property'])
 

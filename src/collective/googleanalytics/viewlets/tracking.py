@@ -32,6 +32,12 @@ class AnalyticsTrackingViewlet(AnalyticsViewlet):
                 return False
         return True
 
+    def is_tracking_custom(self):
+        """
+        Returns True custom tracking code to connect with google.
+        """
+        return self.analytics_tool.__dict__.get('custom_js', '')        
+
     def getTrackingWebProperty(self):
         """
         Returns the Google web property ID for the selected tracking profile,

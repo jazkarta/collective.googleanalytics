@@ -171,3 +171,13 @@ def upgrade_10_to_11(setup_tool):
 
     if hasattr(jar, 'foreign_connections'):
         delattr(jar, 'foreign_connections')
+
+
+def upgrade_11_to_12(setup_tool):
+    """
+    Prepare code for google universal analytics (add "custom tracking" field).
+    """
+
+    analytics_tool = getToolByName(setup_tool, 'portal_analytics')
+    if not hasattr(analytics_tool, 'custom_js'):
+        analytics_tool.custom_js = None
