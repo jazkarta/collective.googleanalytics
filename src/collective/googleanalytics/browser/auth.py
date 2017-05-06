@@ -1,10 +1,12 @@
 
 from zope.annotation import IAnnotations
-
+from zope.interface import alsoProvides
 from zope.publisher.browser import BrowserPage
 from Products.CMFCore.utils import getToolByName
 from collective.googleanalytics import error
 from collective.googleanalytics import GoogleAnalyticsMessageFactory as _
+from plone.protect.interfaces import IDisableCSRFProtection
+
 from gdata.gauth import OAuth2RevokeError
 from gdata.gauth import OAuth2AccessTokenError
 
@@ -23,6 +25,7 @@ class AnalyticsAuth(BrowserPage):
         """
         Gets the token from the URL and takes the appropriate action.
         """
+        alsoProvides(self.request, IDisableCSRFProtection)
 
         analytics_tool = getToolByName(self.context, 'portal_analytics')
         plone_utils = getToolByName(self.context, 'plone_utils')
